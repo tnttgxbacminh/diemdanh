@@ -1291,8 +1291,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Hàm gửi thông điệp đến Service Worker để hiển thị thông báo offline
     function sendOfflineNotification() {
-        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({ action: 'offlineNotification' });
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.ready.then(registration => {
+                // registration.active đảm bảo rằng service worker đã đang kiểm soát trang
+                if (registration.active) {
+                    registration.active.postMessage({ action: 'offlineNotification' });
+                }
+            }).catch(err => console.error("Service worker chưa sẵn sàng:", err));
         }
     }
 });
