@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'attendance-cache-v1';
+﻿const CACHE_NAME = 'attendance-cache-v2';
 const urlsToCache = [
     '/diemdanh/',
     '/diemdanh/index.html',
@@ -75,7 +75,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('message', event => {
     if (event.data && event.data.action === 'offlineNotification') {
         self.registration.showNotification("Có bản Ghi Offline", {
-            body: "Vào lại khi có mạng! Để đồng bộ dữ liệu.",
+            body: "Vào lại ứng dụng khi có kết nối! Để gửi dữ liệu điểm danh.",
             icon: "/diemdanh/images/icon.png",
             tag: "offline-notification"
         });
@@ -104,3 +104,5 @@ self.addEventListener('notificationclick', function (event) {
             })
     );
 });
+
+
