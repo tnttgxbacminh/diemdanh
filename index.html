@@ -4,23 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover" />
     <title>Điểm danh Thiếu Nhi</title>
-    <link rel="manifest" href="/0902/manifest.json">
+    <link rel="manifest" href="/diemdanh/manifest.json">
 
     <!-- Google Font Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet" />
 
     <!-- HTML5 QR Code Library -->
-    <script src="/0902/html5-qrcode.min.js" type="text/javascript"></script>
+    <script src="/diemdanh/html5-qrcode.min.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="/0902/styles.css">
+    <link rel="stylesheet" href="/diemdanh/styles.css">
 
 </head>
 <body>
 
     <!-- Logo -->
     <div class="top-image">
-        <img src="/0902/images/icon.png" alt="Logo" />
+        <img src="/diemdanh/images/icon.png" alt="Logo" />
     </div>
 
 
@@ -79,13 +79,13 @@
     </div>
 
     <!-- Gọi file JavaScript chính -->
-    <script src="/0902/main.js"></script>
+    <script src="/diemdanh/main.js"></script>
 
     <!-- Đăng ký Service Worker để hỗ trợ offline -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/0902/service-worker.js')
+                navigator.serviceWorker.register('/diemdanh/service-worker.js')
                     .then(registration => {
                         console.log('Service Worker đăng ký thành công với scope:', registration.scope);
                     })
