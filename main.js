@@ -55,9 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // Định nghĩa thời gian hiển thị dựa vào loại thông báo
         let displayDuration;
         if (type === "status") {
-            displayDuration = 3000;
+            displayDuration = 3500;
         } else if (type === "error") {
-            displayDuration = 2000;
+            displayDuration = 2500;
         } else {
             displayDuration = 1500;
         }
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Đã lưu điểm danh Offline:", record);
                 // Chỉ hiển thị modal nếu chưa được hiển thị trong phiên này
                 if (!hasNotifiedOffline) {
-                    showModal("Có bản Ghi Offline - Vào lại khi có mạng!\nĐể đồng bộ dữ liệu", "status");
+                    showModal("Bản Ghi Offline - Vào lại khi có mạng!\nĐể gửi điểm danh", "status");
                     sendOfflineNotification();
                     hasNotifiedOffline = true;
                 }
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
         runOnlineTasks();
     } else {
         // Nếu không có mạng ngay từ đầu, hiển thị thông báo offline.
-        showModal("Bạn đang Offline", "status");
+        showModal("Bạn đang Offline!", "status");
     }
 
     window.addEventListener("online", () => {
@@ -955,6 +955,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     }
 
+
                     // Reset giao diện
                     document.getElementById("search-query").value = "";
                     document.getElementById("search-results").innerHTML = "";
@@ -1300,5 +1301,5 @@ document.addEventListener("DOMContentLoaded", function () {
             }).catch(err => console.error("Service worker chưa sẵn sàng:", err));
         }
     }
-});
 
+});
