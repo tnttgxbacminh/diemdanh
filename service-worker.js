@@ -1,13 +1,13 @@
-﻿const CACHE_NAME = 'attendance-cache-v10';
+﻿const CACHE_NAME = 'attendance-cache-v1';
 const urlsToCache = [
-    '/demo/',
-    '/demo/index.html',
-    '/demo/styles.css',
-    '/demo/main.js',
-    '/demo/manifest.json',
-    '/demo/html5-qrcode.min.js',
-    '/demo/images/logo.jpg',
-    '/demo/images/icon.png'
+    '/0902/',
+    '/0902/index.html',
+    '/0902/styles.css',
+    '/0902/main.js',
+    '/0902/manifest.json',
+    '/0902/html5-qrcode.min.js',
+    '/0902/images/logo.jpg',
+    '/0902/images/icon.png'
 ];
 
 self.addEventListener('install', event => {
@@ -76,7 +76,7 @@ self.addEventListener('message', event => {
     if (event.data && event.data.action === 'offlineNotification') {
         self.registration.showNotification("Có bản Ghi Offline", {
             body: "Vào lại khi có mạng! Để đồng bộ dữ liệu.",
-            icon: "/demo/images/icon.png",
+            icon: "/0902/images/icon.png",
             tag: "offline-notification"
         });
     } else {  // Nếu điều kiện không thỏa mãn
@@ -93,13 +93,13 @@ self.addEventListener('notificationclick', function (event) {
                 for (var i = 0; i < clientList.length; i++) {
                     var client = clientList[i];
                     // Nếu cửa sổ đã mở và URL trùng, focus nó (điều này sẽ mở lại ứng dụng PWA)
-                    if (client.url === 'https://pi982.github.io/demo/' && 'focus' in client) {
+                    if (client.url === 'https://tnttgxbacminh.github.io/0902/' && 'focus' in client) {
                         return client.focus();
                     }
                 }
                 // Nếu không có cửa sổ nào mở, mở một cửa sổ mới với URL của PWA
                 if (clients.openWindow) {
-                    return clients.openWindow('https://pi982.github.io/demo/');
+                    return clients.openWindow('https://tnttgxbacminh.github.io/0902/');
                 }
             })
     );
