@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lắng nghe sự kiện 'offline': thông báo khi mất kết nối
     window.addEventListener("offline", () => {
-        showModal("Bạn đang Offline", "status");
+        showModal("Bạn đang Offline!", "status");
         // (Tùy chọn) Gọi hàm gửi notification
     });
 
@@ -1301,5 +1301,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }).catch(err => console.error("Service worker chưa sẵn sàng:", err));
         }
     }
-
 });
