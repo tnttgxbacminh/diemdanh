@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover" />
+    <title>Điểm danh Thiếu Nhi</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Google Font Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <!-- HTML5 QR Code Library -->
+    <script src="/html5-qrcode.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <!-- Logo -->
+    <div class="top-image">
+        <img src="images/icon.png" alt="Logo" />
+    </div>
+
+
+    <!-- Giao diện đăng nhập -->
+    <div id="login-container" class="container login-container">
+        <form id="login-form">
+            <input type="text" id="login-account" placeholder="Tài khoản" required />
+            <input type="password" id="login-password" placeholder="Mật khẩu" required />
+            <button type="submit" id="login-submit">Đăng nhập</button>
+            <!-- Spinner hiển thị khi đăng nhập đang xử lý -->
+            <div id="login-spinner" class="spinner" style="display: none;"></div>
+        </form>
+    </div>
+
+    <!-- Nút chuyển đổi chế độ -->
+    <section class="mode-toggle" style="display: none;">
+        <button id="toggle-search" class="toggle-button">Điểm danh</button>
+        <button id="toggle-qr" class="toggle-button">Quét QR</button>
+        <button id="toggle-report" class="toggle-button">Kết quả</button>
+    </section>
+
+    <!-- Dropdown trạng thái -->
+    <div id="status-dropdown">
+        <div id="status-di-le" class="status-box">Đi lễ</div>
+        <div id="status-di-hoc" class="status-box">Đi học</div>
+        <div id="status-khac" class="status-box">Khác</div>
+    </div>
+
+    <!-- Container chức năng -->
+    <section id="function-container" class="function-container" style="display: none;">
+        <div id="qr-container" class="fullscreen" style="display: none;">
+            <div id="qr-scanner">
+                <div class="loading"></div>
+            </div>
+        </div>
+
+        <div id="search-container" class="container" hidden fade-in>
+            <input type="text" id="search-query" placeholder="Nhập tên, ID hoặc lớp" />
+            <button id="search-button">Tìm kiếm</button>
+            <div id="search-results"></div>
+        </div>
+
+        <div id="report-container" class="container" hidden fade-in>
+            <input type="text" id="report-query" placeholder="Nhập tên, ID hoặc lớp" />
+            <button id="report-button">Tìm kiếm</button>
+            <div id="report-results"></div>
+        </div>
+    </section>
+
+    <!-- Modal thông báo -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <!-- <span id="modal-close" class="modal-close">&times;</span> -->
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <!-- Gọi file JavaScript chính -->
+    <script src="main.js"></script>
+
+    <!-- Đăng ký Service Worker để hỗ trợ offline -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker đăng ký thành công với scope:', registration.scope);
+                    })
+                    .catch(err => {
+                        console.warn('Service Worker đăng ký thất bại:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
