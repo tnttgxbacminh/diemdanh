@@ -413,7 +413,27 @@ document.addEventListener("DOMContentLoaded", function () {
     let isScanning = false;
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
-        fps: 10,
+      fps: 10,
+      qrbox: function (viewfinderWidth, viewfinderHeight) {
+        let width, height, size;
+        if (viewfinderWidth > 1500) {
+          width = viewfinderWidth * 0.4;
+          height = viewfinderHeight * 0.8;
+          if (width < 250) width = 200;
+          if (height < 200) height = 180;
+        } else {
+          width = viewfinderWidth * 0.4;
+          height = viewfinderHeight * 0.5;
+          if (width < 250) width = 200;
+          if (height < 200) height = 180;
+        }
+        size = Math.min(width, height);
+        const minSize = Math.max(200, 180);
+        if (size < minSize) {
+          size = minSize;
+        }
+        return { width: size, height: size };
+      },
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
