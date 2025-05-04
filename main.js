@@ -405,7 +405,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("status-khac")
         .addEventListener("click", () => onStatusSelected("khac"));
 
-
     // ---------------------
     // XỬ LÝ QR SCANNER
     // ---------------------
@@ -413,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let isScanning = false;
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
-      fps: 10,
+      fps: 15,
       qrbox: function (viewfinderWidth, viewfinderHeight) {
         let width, height, size;
         if (viewfinderWidth > 1500) {
