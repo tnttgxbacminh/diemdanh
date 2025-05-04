@@ -476,7 +476,7 @@ th {
 		/* Giảm font size */
 		font-size: 1.1rem;
 		line-height: 1.6;
-		white-space: normal; /* Cho phép tự động xuống dòng */
+		white-space: pre-line; /* Bảo toàn ký tự xuống dòng */
 		overflow-wrap: break-word;
 	}
 
