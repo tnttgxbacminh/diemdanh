@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("loginTimestamp")) {
         // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
@@ -1162,12 +1161,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let html = `
         <html>
           <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <title>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</title>
             <style>
               body {
                 font-family: Arial, sans-serif;
-                margin: 0 10px;
                 padding: 0;
+                margin: 0 10px;
               }
               table {
                 width: 100%;
@@ -1199,19 +1199,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
               .header h1 {
                 margin: 0;
-                font-size: 30px;
+                font-size: 40px;
               }
               .header p {
                 margin: 10px 0 20px 0;
                 font-size: 20px;
                 font-weight: normal;
               }
-
+               @page {
+                  size: A4 landscape;
+                  margin-top: 10mm;
+                  margin-right: 10mm;
+                  margin-bottom: 0mm;
+                  margin-left: 10mm;
+               }
               /* Khi in, lặp lại header của bảng trên mỗi trang */
               @media print {
-                body{
-                   margin: 0 10px;
-                }
                 thead {
                   display: table-header-group;
                 }
@@ -1223,20 +1226,21 @@ document.addEventListener("DOMContentLoaded", function () {
               @media (max-width: 600px) {
                 .header h1 {
                 margin: 0;
-                font-size: 26px;
+                font-size: 28px;
                 }
                 .header p {
                 margin: 8px 0 8px 0;
-                font-size: 16px;
+                font-size: 18px;
                 }
                 table {
+                  margin: 5px;
                   table-layout: fixed;
                   width: 100%;
-                  font-size: 11px;
-                  margin: 8px;
+                  font-size: 12px;
+                  
                 }
                 th, td {
-                  padding: 4px 4px;
+                  padding: 4.5px 5px;
                 }
               }
             </style>
@@ -1247,7 +1251,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentIndex = 0;
         let page = 1;
         while (currentIndex < data.length) {
-            let rowsThisPage = (page === 1) ? 21 : 24 ;
+            let rowsThisPage = (page === 1) ? 20 : 24 ;
             let pageData = data.slice(currentIndex, currentIndex + rowsThisPage);
             currentIndex += rowsThisPage;
 
@@ -1276,7 +1280,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </colgroup>
         <thead>
     `;
-
+            
             // Trang đầu tiên có header báo cáo (tiêu đề + ngày)
             if (page === 1) {
                 html += `
