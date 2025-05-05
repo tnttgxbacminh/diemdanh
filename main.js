@@ -1152,55 +1152,56 @@ document.addEventListener("DOMContentLoaded", function () {
         const formattedDate = today.toLocaleDateString("vi-VN");
         const printWindow = window.open("", "In Báo cáo", "width=800,height=600");
         let html = `
-      <html>
+        <html>
         <head>
-          <title>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</title>
-          <style>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</title>
+            <style>
             body {
-              font-family: Arial, sans-serif;
-              margin: 20px;
-              padding: 0;
+                font-family: Arial, sans-serif;
+                margin: 10px;
+                padding: 0;
             }
             .header {
-              text-align: center;
-              margin-bottom: 15px;
+                text-align: center;
+                margin-bottom: 10px;
             }
             .header h1 {
-              margin: 0;
-              font-size: 28px;
+                margin: 0;
+                font-size: 28px;
             }
             .header p {
-              margin: 5px 0 0;
-              font-size: 18px;
+                margin: 5px 0 0;
+                font-size: 20px;
             }
 
             table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 20px;
-              table-layout: fixed;
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                table-layout: fixed;
             }
             table, th, td {
-              font-size: 13px; /* Điều chỉnh giá trị này theo ý bạn */
-              border: 1px solid black;
-              word-wrap: break-word;       /* Hoặc overflow-wrap: break-word; */
-              white-space: normal;
+                font-size: 13px; /* Điều chỉnh giá trị này theo ý bạn */
+                border: 1px solid black;
+                word-wrap: break-word;       /* Hoặc overflow-wrap: break-word; */
+                white-space: normal;
 
             }
             th, td {
-              padding: 6px;
-              line-height: 1.2;
-              text-align: center;
+                padding: 6px;
+                line-height: 1.2;
+                text-align: center;
             }
 
             @media print {
-              body{
-                margin-left: 5px;
-              }
-              thead { display: table-header-group; }
-              tr { page-break-inside: avoid; }
+                body{
+                margin-left: 10px;
+                }
+                thead { display: table-header-group; }
+                tr { page-break-inside: avoid; }
             }
-          </style>
+            </style>
         </head>
         <body>
 
@@ -1209,9 +1210,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p>Ngày: ${formattedDate}</p>
             </div>  
             
-          <div class="content">
+            <div class="content">
             <table>
-              <colgroup>
+                <colgroup>
                 <!-- Giả sử các cột đầu tiên A - E không cần thay đổi -->
                 <col style="width: 4%;">
                 <col style="width: 10%;">
@@ -1228,28 +1229,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 <col style="width: 6%;">
                 <col style="width: 6%;">
                 <col style="width: 6%;">
-              </colgroup>
-              <thead>
+                </colgroup>
+                <thead>
                 <tr>
-                  <th>STT</th>
-                  <th>ID</th>
-                  <th>Tên Thánh</th>
-                  <th>Họ và Tên</th>`;
+                    <th>STT</th>
+                    <th>ID</th>
+                    <th>Tên Thánh</th>
+                    <th>Họ và Tên</th>`;
         /*if (hasMultipleClasses) {
-          html += `<th>Lớp</th>`;
+            html += `<th>Lớp</th>`;
         }*/
         html += `   <th>Đi lễ</th>
-                  <th>Vắng</th>
-                  <th>Đi học</th>
-                  <th>Vắng</th>
-                  <th>Đi</th>
-                  <th>Vắng</th>  
-                  <th>Đi lễ</th>
-                  <th>Đi học</th>
-                  <th>Khác</th>
+                    <th>Vắng</th>
+                    <th>Đi học</th>
+                    <th>Vắng</th>
+                    <th>Đi</th>
+                    <th>Vắng</th>  
+                    <th>Đi lễ</th>
+                    <th>Đi học</th>
+                    <th>Khác</th>
                 </tr>
-              </thead>
-              <tbody>`;
+                </thead>
+                <tbody>`;
         data.forEach((item, index) => {
             html += `<tr>
                 <td>${index + 1}</td>
@@ -1257,25 +1258,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${item.holyName}</td>
                 <td style="text-align: left;">${item.fullName}</td>`;
             /*if (hasMultipleClasses) {
-              html += `<td>${item.birthDate}</td>`;
+                html += `<td>${item.birthDate}</td>`;
             }*/
             html += `<td>${(item.colF !== null && item.colF !== undefined) ? item.colF : ""}</td>
-              <td>${(item.colG !== null && item.colG !== undefined) ? item.colG : ""}</td>
-              <td>${(item.colH !== null && item.colH !== undefined) ? item.colH : ""}</td>
-              <td>${(item.colI !== null && item.colI !== undefined) ? item.colI : ""}</td>
-              <td>${(item.colJ !== null && item.colJ !== undefined) ? item.colJ : ""}</td>
-              <td>${(item.colK !== null && item.colK !== undefined) ? item.colK : ""}</td>
-              <td>${item.percentDiLe || ""}</td>
-              <td>${item.percentDiHoc || ""}</td>
-              <td>${item.percentKhac || ""}</td>
-              </tr>`;
+                <td>${(item.colG !== null && item.colG !== undefined) ? item.colG : ""}</td>
+                <td>${(item.colH !== null && item.colH !== undefined) ? item.colH : ""}</td>
+                <td>${(item.colI !== null && item.colI !== undefined) ? item.colI : ""}</td>
+                <td>${(item.colJ !== null && item.colJ !== undefined) ? item.colJ : ""}</td>
+                <td>${(item.colK !== null && item.colK !== undefined) ? item.colK : ""}</td>
+                <td>${item.percentDiLe || ""}</td>
+                <td>${item.percentDiHoc || ""}</td>
+                <td>${item.percentKhac || ""}</td>
+                </tr>`;
         });
         html += `
-              </tbody>
+                </tbody>
             </table>
-          </div>
+            </div>
         </body>
-      </html>`;
+        </html>`;
         printWindow.document.write(html);
         printWindow.document.close();
         printWindow.focus();
@@ -1287,6 +1288,8 @@ document.addEventListener("DOMContentLoaded", function () {
             printWindow.print();
         }, 1000);
     }
+
+    
 
     // Kiểm tra nếu trình duyệt hỗ trợ Notification và trạng thái hiện tại là "default"
     if ("Notification" in window && Notification.permission === "default") {
