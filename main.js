@@ -1179,7 +1179,7 @@ document.addEventListener("DOMContentLoaded", function () {
               th, td {
                 padding: 5px 5px;
                 box-sizing: border-box;
-                border: 1px solid black;
+                border: 0.5px solid black;
                 word-wrap: break-word;
                 white-space: normal;
                 text-align: center;
