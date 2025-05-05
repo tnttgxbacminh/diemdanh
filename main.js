@@ -1161,12 +1161,11 @@ document.addEventListener("DOMContentLoaded", function () {
         let html = `
         <html>
           <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
             <title>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</title>
             <style>
               body {
                 font-family: Arial, sans-serif;
-                margin: 15px 10px;
+                margin: 0 10px;
                 padding: 0;
               }
               table {
@@ -1209,6 +1208,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
               /* Khi in, lặp lại header của bảng trên mỗi trang */
               @media print {
+                body{
+                   margin: 0 10px;
+                }
                 thead {
                   display: table-header-group;
                 }
@@ -1220,16 +1222,17 @@ document.addEventListener("DOMContentLoaded", function () {
               @media (max-width: 600px) {
                 .header h1 {
                 margin: 0;
-                font-size: 28px;
+                font-size: 26px;
                 }
                 .header p {
-                margin: 10px 0 10px 0;
-                font-size: 18px;
+                margin: 8px 0 8px 0;
+                font-size: 16px;
                 }
                 table {
                   table-layout: fixed;
                   width: 100%;
-                  font-size: 12.5px;
+                  font-size: 11px;
+                  margin: 8px;
                 }
                 th, td {
                   padding: 4px 4px;
@@ -1256,8 +1259,8 @@ document.addEventListener("DOMContentLoaded", function () {
             html += `
       <table>
         <colgroup>
-          <col style="width: 4.5%;">
-          <col style="width: 9.5%;">
+          <col style="width: 5%;">
+          <col style="width: 10%;">
           <col style="width: 10%;">
           <col style="width: 22%;">
           <col style="width: 6%;">
