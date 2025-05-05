@@ -1227,6 +1227,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-size: 18px;
                 }
                 table {
+                  table-layout: fixed;
+                  width: 100%;
                   font-size: 12.5px;
                 }
                 th, td {
