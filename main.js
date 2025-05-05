@@ -1208,10 +1208,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }
                @page {
                   size: A4 landscape;
-                  margin-top: 10mm;
-                  margin-right: 10mm;
-                  margin-bottom: 0mm;
-                  margin-left: 10mm;
+                  margin: 10mm;
                }
               /* Khi in, lặp lại header của bảng trên mỗi trang */
               @media print {
