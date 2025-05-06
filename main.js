@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.body.classList.add('app-active');
                 } else {
                     // Nếu đăng nhập thất bại, hiển thị lỗi
-                    showModal(data.message || "Sai tài khoản hoặc mật khẩu", "error");
+                    showModal(data.message || "Sai tài khoản hoặc mật khẩu.", "error");
                     document.body.classList.remove('app-active');
                 }
             })
@@ -172,14 +172,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Đã lưu điểm danh Offline:", record);
                 // Chỉ hiển thị modal nếu chưa được hiển thị trong phiên này
                 if (!hasNotifiedOffline) {
-                    showModal("Bản Ghi Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh", "status");
+                    showModal("Bản Ghi Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh.", "status");
                     sendOfflineNotification();
                     hasNotifiedOffline = true;
                 }
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
-                showModal("Lỗi lưu điểm danh Offline", "error");
+                showModal("Lỗi lưu điểm danh Offline.", "error");
             };
         }).catch(err => console.error(err));
     }
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
                         console.log("Gửi xong tất cả bản điểm danh Offline");
-                        modalMessage.innerHTML = "Gửi xong tất cả bản điểm danh Offline";
+                        modalMessage.innerHTML = "Gửi xong tất cả bản điểm danh Offline.";
                         clearOfflineAttendanceStore();
                         setTimeout(() => {
                             modal.classList.remove("show");
@@ -241,13 +241,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     })
                     .catch(err => {
                         console.error("Lỗi khi đồng bộ các bản ghi offline:", err);
-                        showModal("Lỗi khi đồng bộ các bản ghi offline", "error");
+                        showModal("Lỗi gửi các bản ghi Offline.", "error");
                     });
             };
 
             req.onerror = () => {
                 console.error("Lỗi truy xuất bản ghi offline từ IndexedDB");
-                showModal("Lỗi truy xuất bản ghi Offline từ IndexedDB", "error");
+                showModal("Lỗi truy xuất dữ liệu Offline.", "error");
             };
         }).catch(err => console.error(err));
     }
@@ -973,14 +973,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ records: records })
                         });
-                        showModal("Điểm danh" + attendanceDescription + selectedIds.length + " thiếu nhi thành công", "success");
+                        showModal("Điểm danh" + attendanceDescription + selectedIds.length + " thiếu nhi thành công.", "success");
                     } else {
                         const batchRecord = {
                             timestamp: Date.now(), // Thêm thuộc tính bắt buộc theo keyPath
                             recordType: "batch",   // Đánh dấu đây là bản ghi dạng batch
                             records: records       // Đây là mảng các bản ghi đã tạo
                         };
-                        showModal("Đã lưu điểm danh" + attendanceDescription + selectedIds.length + " thiếu nhi Offline", "normal");
+                        showModal("Đã lưu điểm danh" + attendanceDescription + selectedIds.length + " thiếu nhi Offline.", "normal");
                         saveAttendanceRecord(batchRecord);
 
                     }
