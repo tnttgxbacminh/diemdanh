@@ -233,11 +233,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
                         console.log("Gửi xong tất cả bản điểm danh Offline");
+                        notificationQueue.length = 0;
                         modalMessage.innerHTML = "Gửi xong dữ liệu điểm danh Offline.";
                         clearOfflineAttendanceStore();
                         setTimeout(() => {
                             modal.classList.remove("show");
-                        }, 2000);
+                        }, 2500);
                     })
                     .catch(err => {
                         console.error("Lỗi khi đồng bộ các bản ghi offline:", err);
