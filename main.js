@@ -1195,7 +1195,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }
               .header h1 {
                 margin: 0;
-                font-size: 40px;
+                font-size: 30px;
                 text-transform: uppercase;
               }
               .header p {
@@ -1205,7 +1205,10 @@ document.addEventListener("DOMContentLoaded", function () {
               }
               @page {
                 size: A4 landscape;
-                margin: 10mm;
+                margin-top: 10mm;
+                margin-bottom: 10mm;
+                margin-left: 15mm;
+                margin-right: 10mm;  
               }
               /* Khi in trên desktop, chỉ tự lặp lại <thead> trong bảng */
               @media print {
