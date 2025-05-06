@@ -328,16 +328,14 @@ document.addEventListener("DOMContentLoaded", function () {
         showModal("Bạn đang Offline!", "status");
         // (Tùy chọn) Gọi hàm gửi notification
     });
-
-
-
+    
     function normalizeText(text) {
-        if (!text) return "";
-        return text.toString()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .trim()
-            .toLowerCase();
+      if (!text) return "";
+      return text.toString()
+                 .normalize('NFD')
+                 .replace(/[\u0300-\u036f]/g, "")
+                 .replace(/\s+/g, "")  // loại bỏ tất cả khoảng trắng
+                 .toLowerCase();
     }
 
     function offlineSearch(query) {
