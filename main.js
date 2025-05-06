@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Đã lưu điểm danh Offline:", record);
                 // Chỉ hiển thị modal nếu chưa được hiển thị trong phiên này
                 if (!hasNotifiedOffline) {
-                    showModal("Bản Ghi Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh.", "status");
+                    showModal("Bản lưu Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh.", "status");
                     sendOfflineNotification();
                     hasNotifiedOffline = true;
                 }
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
                         console.log("Gửi xong tất cả bản điểm danh Offline");
-                        modalMessage.innerHTML = "Gửi xong tất cả bản điểm danh Offline.";
+                        modalMessage.innerHTML = "Gửi xong dữ liệu điểm danh Offline.";
                         clearOfflineAttendanceStore();
                         setTimeout(() => {
                             modal.classList.remove("show");
