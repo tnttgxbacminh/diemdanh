@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //console.log("Đã lưu điểm danh Offline:", record);
                 // Chỉ hiển thị modal nếu chưa được hiển thị trong phiên này
                 if (!hasNotifiedOffline) {
-                    showModal("Bản lưu Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh.", "status");
+                    showModal("Lưu Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh.", "status");
                     sendOfflineNotification();
                     hasNotifiedOffline = true;
                 }
@@ -183,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
             };
         }).catch(err => console.error(err));
     }
-
     function syncCombinedAttendanceRecords() {
         openAttendanceDB().then(db => {
             const transaction = db.transaction("offlineAttendance", "readonly");
