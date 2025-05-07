@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const store = transaction.objectStore("offlineAttendance");
             const req = store.add(record);
             req.onsuccess = () => {
-                console.log("Đã lưu điểm danh Offline:", record);
+                //console.log("Đã lưu điểm danh Offline:", record);
                 // Chỉ hiển thị modal nếu chưa được hiển thị trong phiên này
                 if (!hasNotifiedOffline) {
                     showModal("Bản lưu Offline - Vào lại App khi có mạng!\nĐể gửi điểm danh.", "status");
@@ -288,8 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Lỗi fetch data sheet:", error));
     }
-
-
+    
     async function runOnlineTasks() {
         try {
             await loadDataSheetToIndexedDB();
