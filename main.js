@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
                 
-                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...', "normal");
+                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...');
                 // Gửi payload chung dạng JSON đến server
                 fetch(webAppUrl, {
                     method: "POST",
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lắng nghe sự kiện 'offline': thông báo khi mất kết nối
     window.addEventListener("offline", () => {
-        showModal("Bạn đang Offline!", "status");
+        showModal("Bạn đang Offline!", "error");
         // (Tùy chọn) Gọi hàm gửi notification
     });
     
