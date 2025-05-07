@@ -1228,11 +1228,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-size: 28px;
                 }
                 .header p {
-                margin: 5px 0 5px 0;
+                margin: 8px 0 8px 0;
                 font-size: 18px;
                 }
                 table {
-                  margin: 5px;
+                  margin: 6px;
                   table-layout: fixed;
                   width: 100%;
                   font-size: 12.2px;
@@ -1246,7 +1246,6 @@ document.addEventListener("DOMContentLoaded", function () {
           </head>
           <body>
       `;
-
         let currentIndex = 0;
         let page = 1;
         while (currentIndex < data.length) {
