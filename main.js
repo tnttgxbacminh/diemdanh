@@ -214,8 +214,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Không có bản ghi nào để gửi.");
                     return;
                 }
-                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...', "status");
-
+                
+                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...', "normal");
                 // Gửi payload chung dạng JSON đến server
                 fetch(webAppUrl, {
                     method: "POST",
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
         runOnlineTasks();
     } else {
         // Nếu không có mạng ngay từ đầu, hiển thị thông báo offline.
-        showModal("Bạn đang Offline!", "status");
+        showModal("Bạn đang Offline!", "error");
     }
 
     window.addEventListener("online", () => {
