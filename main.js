@@ -1228,14 +1228,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-size: 28px;
                 }
                 .header p {
-                margin: 8px 0 8px 0;
+                margin: 5px 0 5px 0;
                 font-size: 18px;
                 }
                 table {
                   margin: 5px;
                   table-layout: fixed;
                   width: 100%;
-                  font-size: 12px;
+                  font-size: 12.2px;
                   
                 }
                 th, td {
@@ -1250,7 +1250,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentIndex = 0;
         let page = 1;
         while (currentIndex < data.length) {
-            let rowsThisPage = (page === 1) ? 20 : 24 ;
+            let rowsThisPage = (page === 1) ? 21 : 25 ;
             let pageData = data.slice(currentIndex, currentIndex + rowsThisPage);
             currentIndex += rowsThisPage;
 
