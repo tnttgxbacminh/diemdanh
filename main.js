@@ -214,14 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Không có bản ghi nào để gửi.");
                     return;
                 }
-
-                // Lấy tham chiếu đến các phần tử modal
-                const modal = document.getElementById("modal");
-                const modalMessage = document.getElementById("modal-message");
-
-                // Hiển thị thông báo “Đang gửi dữ liệu...” có spinner
-                modalMessage.innerHTML = '<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...';
-                modal.classList.add("show");
+                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...', "status");
 
                 // Gửi payload chung dạng JSON đến server
                 fetch(webAppUrl, {
@@ -233,12 +226,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
                         console.log("Gửi xong tất cả bản điểm danh Offline");
-                        notificationQueue.length = 0;
-                        modalMessage.innerHTML = "Gửi xong dữ liệu điểm danh Offline.";
+                        showModal("Đã gửi xong.", "success");
                         clearOfflineAttendanceStore();
-                        setTimeout(() => {
-                            modal.classList.remove("show");
-                        }, 2500);
                     })
                     .catch(err => {
                         console.error("Lỗi khi đồng bộ các bản ghi offline:", err);
@@ -320,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.addEventListener("online", () => {
-        //showModal("Đã kết nối mạng!", "success");
+        showModal("Đã kết nối mạng!", "success");
         syncCombinedAttendanceRecords();
     })
 
