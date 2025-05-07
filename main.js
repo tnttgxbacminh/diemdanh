@@ -298,23 +298,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Kiểm tra trạng thái mạng ngay khi trang load
+    let offlineTimer;
+    
     if (navigator.onLine) {
-        runOnlineTasks();
+      runOnlineTasks();
     } else {
-        // Nếu không có mạng ngay từ đầu, hiển thị thông báo offline.
+      offlineTimer = setTimeout(() => {
         showModal("Bạn đang Offline!", "error");
+      }, 1000);
     }
-
+    
     window.addEventListener("online", () => {
-        showModal("Đã kết nối mạng!", "success");
-        syncCombinedAttendanceRecords();
-    })
-
-    // Lắng nghe sự kiện 'offline': thông báo khi mất kết nối
+      // Nếu có timer hiện thông báo offline, xóa nó
+      if (offlineTimer) {
+        clearTimeout(offlineTimer);
+        offlineTimer = null;
+      }
+      showModal("Đã kết nối mạng!", "success");
+      syncCombinedAttendanceRecords();
+    });
+    
     window.addEventListener("offline", () => {
+      // Khi mất mạng, hiển thị sau một khoảng delay
+      offlineTimer = setTimeout(() => {
         showModal("Bạn đang Offline!", "error");
-        // (Tùy chọn) Gọi hàm gửi notification
+      }, 1000);
     });
     
     function normalizeText(text) {
