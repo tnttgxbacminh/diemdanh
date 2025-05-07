@@ -299,13 +299,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let offlineTimer;
-    
     if (navigator.onLine) {
       runOnlineTasks();
     } else {
       offlineTimer = setTimeout(() => {
         showModal("Bạn đang Offline!", "error");
-      }, 1000);
+      }, 2000);
     }
     
     window.addEventListener("online", () => {
@@ -322,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Khi mất mạng, hiển thị sau một khoảng delay
       offlineTimer = setTimeout(() => {
         showModal("Bạn đang Offline!", "error");
-      }, 1000);
+      }, 2000);
     });
     
     function normalizeText(text) {
