@@ -417,26 +417,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
       fps: 15,
-      qrbox: function (viewfinderWidth, viewfinderHeight) {
-        let width, height, size;
-        if (viewfinderWidth > 1500) {
-          width = viewfinderWidth * 0.4;
-          height = viewfinderHeight * 0.8;
-          if (width < 250) width = 200;
-          if (height < 200) height = 180;
-        } else {
-          width = viewfinderWidth * 0.4;
-          height = viewfinderHeight * 0.5;
-          if (width < 250) width = 200;
-          if (height < 200) height = 180;
-        }
-        size = Math.min(width, height);
-        const minSize = Math.max(200, 180);
-        if (size < minSize) {
-          size = minSize;
-        }
-        return { width: size, height: size };
-      },
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
@@ -472,44 +452,30 @@ document.addEventListener("DOMContentLoaded", function () {
             if (callback) callback();
         }, 500);
     }
+    
     function startCamera(loadingElem) {
-        Html5Qrcode.getCameras()
-            .then((cameras) => {
-                cameras.forEach((camera) => console.log(camera.label));
-                if (cameras && cameras.length) {
-                    let rearCamera = cameras.find((camera) => {
-                        const label = camera.label.toLowerCase();
-                        return label.includes("back") ||
-                            label.includes("rear") ||
-                            label.includes("environment") ||
-                            label.includes("sau") ||
-                            label.includes("camera sau") ||
-                            label.includes("camera chính");
-                    });
-                    cameraId = rearCamera ? rearCamera.id : cameras[0].id;
-
-                    html5QrCode
-                        .start(cameraId, qrConfig, onScanSuccess, onScanFailure)
-                        .then(() => {
-                            isScanning = true;
-                            if (loadingElem) loadingElem.style.display = "none";
-                            console.log("Camera bắt đầu quét mã QR.");
-                        })
-                        .catch((err) => {
-                            console.error("Lỗi khi khởi động camera:", err);
-                            showModal("Không truy cập được camera!", "error");
-                        });
-                } else {
-                    if (loadingElem) {
-                        loadingElem.style.display = "flex";
-                        loadingElem.textContent = "Không tìm thấy camera!";
-                    }
-                    showModal("Không tìm thấy camera!", "error");
-                }
+        const videoConstraints = { facingMode: "environment" };
+        html5QrCode
+            .start(videoConstraints, qrConfig, onScanSuccess, onScanFailure)
+            .then(() => {
+                isScanning = true;
+                if (loadingElem) loadingElem.style.display = "none";
+                console.log("Camera bắt đầu quét mã QR với facingMode: 'environment'.");
             })
             .catch((err) => {
-                console.error("Lỗi lấy camera:", err);
-                showModal("Không truy cập được camera!", "error");
+                console.error("Lỗi khi khởi động camera với facingMode: 'environment':", err);
+                // Fallback: nếu không tìm được camera theo constraint, thử khởi động mặc định.
+                html5QrCode
+                    .start(null, qrConfig, onScanSuccess, onScanFailure)
+                    .then(() => {
+                        isScanning = true;
+                        if (loadingElem) loadingElem.style.display = "none";
+                        console.log("Fallback: Camera được khởi động mặc định.");
+                    })
+                    .catch((fallbackErr) => {
+                        console.error("Fallback: Lỗi khi khởi động camera mặc định:", fallbackErr);
+                        showModal("Không truy cập được camera!", "error");
+                    });
             });
     }
     function showQRInterface() {
