@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-cache-v16';
+const CACHE_NAME = 'attendance-cache-v17';
 const urlsToCache = [
     '/diemdanh/',
     '/diemdanh/index.html',
@@ -74,7 +74,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('message', event => {
     if (event.data && event.data.action === 'offlineNotification') {
-        self.registration.showNotification("Có bản Lưu Offline", {
+        self.registration.showNotification("Điểm danh Offline", {
             body: "Vào lại ứng dụng khi có kết nối! Để gửi dữ liệu điểm danh.",
             icon: "/diemdanh/images/icon.png",
             tag: "offline-notification"
