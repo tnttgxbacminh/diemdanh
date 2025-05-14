@@ -213,8 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Không có bản ghi nào để gửi.");
                     return;
                 }
-                
-                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...');
+                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...',"info");
                 // Gửi payload chung dạng JSON đến server
                 fetch(webAppUrl, {
                     method: "POST",
