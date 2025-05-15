@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-cache-v17';
+const CACHE_NAME = 'attendance-cache-v18';
 const urlsToCache = [
     '/diemdanh/',
     '/diemdanh/index.html',
@@ -55,7 +55,6 @@ self.addEventListener('fetch', event => {
     );
 });
 
-
 self.addEventListener('activate', event => {
     const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
@@ -104,4 +103,3 @@ self.addEventListener('notificationclick', function (event) {
             })
     );
 });
-
