@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Không có bản ghi nào để gửi.");
                     return;
                 }
-                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...',"info");
+                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...',"status");
                 // Gửi payload chung dạng JSON đến server
                 fetch(webAppUrl, {
                     method: "POST",
@@ -414,9 +414,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let cameraId = null;
     let isScanning = false;
     const html5QrCode = new Html5Qrcode("qr-scanner");
-    const qrConfig = {
-      fps: 10,
-    };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
         if (!scannedCodes.has(decodedText)) {
@@ -454,6 +451,14 @@ document.addEventListener("DOMContentLoaded", function () {
     
     function startCamera(loadingElem) {
         const videoConstraints = { facingMode: "environment" };
+        const qrConfig = {
+            fps: 10,
+            videoConstraints: {
+                facingMode: "environment", 
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            }
+        };
         html5QrCode
             .start(videoConstraints, qrConfig, onScanSuccess, onScanFailure)
             .then(() => {
