@@ -1223,7 +1223,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentIndex = 0;
         let page = 1;
         while (currentIndex < data.length) {
-            let rowsThisPage = (page === 1) ? 21 : 25 ;
+            let rowsThisPage = (page === 1) ? 21 : 25;
             let pageData = data.slice(currentIndex, currentIndex + rowsThisPage);
             currentIndex += rowsThisPage;
 
@@ -1252,7 +1252,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </colgroup>
         <thead>
     `;
-            
+
             // Trang đầu tiên có header báo cáo (tiêu đề + ngày)
             if (page === 1) {
                 html += `
