@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("loginTimestamp")) {
         // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
@@ -135,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Các biến và khởi tạo
     const webAppUrl =
-        "https://script.google.com/macros/s/AKfycbz1Pf6rxz0HVA7FA_GpDWm5NDdamvtC8-vNRM9MWwmhTa3Zo6ACKdrv8j9t7z-7l-wi/exec";
+        "https://script.google.com/macros/s/AKfycbytsnKRuH3Ae4FmzayupEwmNYMilsZDLLqq0VUMN8XYcOMWaXNM6FgbOy3p-sOytT7a/exec";
     let currentAttendanceType = "di-le"; // Mặc định
     let currentMode = "report"; // Có thể là "qr", "search", "report"
     const searchCache = new Map();
