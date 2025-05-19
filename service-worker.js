@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-cache-v19';
+const CACHE_NAME = 'attendance-cache-v20';
 const urlsToCache = [
     '/diemdanh/',
     '/diemdanh/index.html',
@@ -21,7 +21,6 @@ self.addEventListener('install', event => {
     );
     self.skipWaiting(); // Bỏ qua trạng thái chờ và kích hoạt ngay lập tức
 });
-
 
 self.addEventListener('fetch', event => {
     // Chỉ xử lý các request GET
