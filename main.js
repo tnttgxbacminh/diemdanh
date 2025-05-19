@@ -482,7 +482,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Camera bắt đầu quét mã QR với facingMode: 'environment'.");
             })
             .catch((err) => {
-                if (loadingElem) loadingElem.style.display = "flex";
                 showModal("Không truy cập được camera!", "error");
                 console.error("Lỗi khi khởi động camera với facingMode: 'environment':", err);
                 // Fallback: nếu không tìm được camera theo constraint, thử khởi động mặc định.
@@ -496,7 +495,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     .catch((fallbackErr) => {
                         console.error("Fallback: Lỗi khi khởi động camera mặc định:", fallbackErr);
                         showModal("Không truy cập được camera!", "error");
-                        if (loadingElem) loadingElem.style.display = "flex";
                     });
             });
     }
