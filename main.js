@@ -298,7 +298,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error("Lỗi fetch data sheet:", error));
     }
 
-
     async function runOnlineTasks() {
         try {
             await loadDataSheetToIndexedDB();
@@ -316,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         offlineTimer = setTimeout(() => {
             showModal("Bạn đang Offline!", "error");
-        }, 1000);
+        }, 2000);
     }
 
     window.addEventListener("online", () => {
@@ -333,9 +332,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Khi mất mạng, hiển thị sau một khoảng delay
         offlineTimer = setTimeout(() => {
             showModal("Bạn đang Offline!", "error");
-        }, 1000);
+        }, 2000);
     });
-
 
     function normalizeText(text) {
         if (!text) return "";
