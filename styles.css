@@ -826,7 +826,6 @@ th {
 		}
 }
 
-
 @media (min-width: 601px) {
 	#search-results table colgroup col:nth-child(1) {
 		width: 20%;
@@ -876,3 +875,4 @@ th {
 		width: 8%;
 	}
 }
+
