@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    
     // Các biến và khởi tạo
     const webAppUrl =
         "https://script.google.com/macros/s/AKfycbytsnKRuH3Ae4FmzayupEwmNYMilsZDLLqq0VUMN8XYcOMWaXNM6FgbOy3p-sOytT7a/exec";
@@ -164,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
             request.onsuccess = () => resolve(request.result);
         });
     }
+    
     // Biến cờ cục bộ để kiểm tra xem đã gửi thông báo offline hay chưa (cho phiên này)
     let hasNotifiedOffline = false;
 
