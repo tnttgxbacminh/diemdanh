@@ -1,3 +1,4 @@
+
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -22,7 +23,7 @@
     <div class="top-image">
         <img src="/diemdanh/images/icon.png" alt="Logo" />
     </div>
-    
+
     <!-- Giao diện đăng nhập -->
     <div id="login-container" class="container login-container">
         <form id="login-form">
@@ -33,13 +34,6 @@
             <div id="login-spinner" class="spinner" style="display: none;"></div>
         </form>
     </div>
-
-    <!-- Nút chuyển đổi chế độ -->
-    <section class="mode-toggle" style="display: none;">
-        <button id="toggle-search" class="toggle-button">Điểm danh</button>
-        <button id="toggle-qr" class="toggle-button">Quét QR</button>
-        <button id="toggle-report" class="toggle-button">Kết quả</button>
-    </section>
 
     <!-- Dropdown trạng thái -->
     <div id="status-dropdown">
@@ -57,16 +51,41 @@
         </div>
 
         <div id="search-container" class="container" hidden fade-in>
-            <input type="text" id="search-query" placeholder="Nhập tên, ID hoặc lớp" />
-            <button id="search-button">Tìm kiếm</button>
+            <div class="input-group">
+                <input type="text" id="search-query" placeholder="Nhập tên, ID hoặc lớp" />
+                <button id="search-button"><img src="images/search.png" alt="" /></button>
+            </div>
             <div id="search-results"></div>
         </div>
 
         <div id="report-container" class="container" hidden fade-in>
-            <input type="text" id="report-query" placeholder="Nhập tên, ID hoặc lớp" />
-            <button id="report-button">Tìm kiếm</button>
+            <div class="input-group">
+                <input type="text" id="report-query" placeholder="Nhập tên, ID hoặc lớp" />
+                <button id="report-button"><img src="images/search.png" alt="" /></button>
+            </div>
             <div id="report-results"></div>
         </div>
+    </section>
+
+    <!-- Nút chuyển đổi chế độ -->
+    <section class="mode-toggle" style="display: none;">
+        <button id="toggle-search" class="toggle-button">
+            <img src="/diemdanh/images/search.png" alt="Search" class="nav-icon">
+            <span class="nav-label">Điểm danh</span>
+        </button>
+        <button id="toggle-qr" class="toggle-button">
+            <img src="/diemdanh/images/qr.png" alt="QR" class="nav-icon">
+            <span class="nav-label">Quét QR</span>
+        </button>
+        <button id="toggle-off" class="toggle-button">
+            <img src="/diemdanh/images/off.png" alt="Off" class="nav-icon">
+            <span class="nav-label">Nghỉ phép</span>
+        </button>
+        <button id="toggle-report" class="toggle-button">
+            <img src="/diemdanh/images/report.png" alt="Report" class="nav-icon">
+            <span class="nav-label">Kết quả</span>
+        </button>
+        <div class="indicator"></div>
     </section>
 
     <!-- Modal thông báo -->
