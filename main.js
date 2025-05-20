@@ -19,62 +19,67 @@ document.addEventListener("DOMContentLoaded", function () {
     const notificationQueue = [];
     let isModalActive = false;
 
-    // Hàm toàn cục showModal chỉ thêm thông báo vào hàng đợi
-    window.showModal = function (message, type) {
-        notificationQueue.push({ message, type });
-        // Nếu không có modal nào đang hiển thị thì kích hoạt hiển thị thông báo tiếp theo
+    // Mở rộng hàm showModal để nhận thêm tham số persistent (mặc định là false)
+    window.showModal = function (message, type, persistent = false) {
+        notificationQueue.push({ message, type, persistent });
         if (!isModalActive) {
             processQueue();
         }
     };
 
     function processQueue() {
-        // Nếu hàng đợi rỗng, kết thúc
         if (!notificationQueue.length) {
             isModalActive = false;
             return;
         }
-
         isModalActive = true;
-        // Lấy thông báo đầu tiên từ hàng đợi
-        const { message, type } = notificationQueue.shift();
+        // Lấy thông báo đầu tiên
+        const { message, type, persistent } = notificationQueue.shift();
 
-        // Các phần tử modal trong HTML
         const modal = document.getElementById("modal");
         const modalMessage = document.getElementById("modal-message");
         const modalContent = modal.querySelector(".modal-content");
 
-        // Cập nhật nội dung thông báo
+        // Cập nhật nội dung và kiểu thông báo
         modalMessage.innerHTML = message;
-
-        // Xóa mọi class kiểu cũ
+        // Xóa các class cũ
         modalContent.classList.remove("success", "error", "normal", "status");
-
-        // Thêm class dựa theo loại thông báo
+        // Thêm kiểu mới
         modalContent.classList.add(type);
-
         // Hiển thị modal
         modal.classList.add("show");
 
-        // Định nghĩa thời gian hiển thị dựa vào loại thông báo
-        let displayDuration;
-        if (type === "status") {
-            displayDuration = 3000;
-        } else if (type === "error") {
-            displayDuration = 2000;
-        } else {
-            displayDuration = 1500;
+        // Nếu thông báo không là persistent, thiết lập thời gian tự động ẩn
+        if (!persistent) {
+            let displayDuration;
+            if (type === "status") {
+                displayDuration = 3000;
+            } else if (type === "error") {
+                displayDuration = 2000;
+            } else {
+                displayDuration = 1500;
+            }
+
+            setTimeout(() => {
+                modal.classList.remove("show");
+                // Chờ chút trước khi hiển thị thông báo tiếp theo
+                setTimeout(() => {
+                    processQueue();
+                }, 100);
+            }, displayDuration);
         }
-
-        // Sau khi thông báo được hiển thị, ẩn và xử lý thông báo kế tiếp
-        setTimeout(() => {
+        // Nếu persistent === true, thì modal sẽ ở lại cho đến khi bạn tự ẩn nó (bằng cách gọi hàm)
+    }
+    
+    function hidePersistentModal() {
+        const modal = document.getElementById("modal");
+        if (modal.classList.contains("show")) {
             modal.classList.remove("show");
-
-            // Đợi một chút (ví dụ 500ms) trước khi hiển thị thông báo tiếp theo để tránh hiện tượng quá chồng
+            // Bạn có thể gọi processQueue() nếu hệ thống hàng đợi cần tiếp tục xử lý các thông báo còn lại
             setTimeout(() => {
                 processQueue();
             }, 100);
-        }, displayDuration);
+        }
     }
 
     // ---------------------
@@ -223,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 // Hiển thị thông báo “Đang gửi dữ liệu...” có spinner
-                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...',"status");
+                showModal('<span class="spinner"></span>\nĐang gửi dữ liệu điểm danh Offline...',"status", true);
 
                 // Gửi payload chung dạng JSON đến server
                 fetch(webAppUrl, {
@@ -235,11 +240,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
                         console.log("Gửi xong tất cả bản điểm danh Offline");
+                        hidePersistentModal();
                         showModal("Đã gửi xong.", "success");
                         clearOfflineAttendanceStore();
                     })
                     .catch(err => {
                         console.error("Lỗi khi đồng bộ các bản ghi offline:", err);
+                        hidePersistentModal();
                         showModal("Lỗi gửi các bản ghi Offline.", "error");
                     });
             };
