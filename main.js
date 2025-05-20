@@ -823,60 +823,15 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Nếu online thì ưu tiên gọi online search, còn nếu có lỗi hay không có kết quả thì fallback vào offline search.
-        if (navigator.onLine) {
-            fetch(webAppUrl + "?action=search&q=" + encodeURIComponent(query))
-                .then((response) => {
-                    // Xử lý phản hồi có thể là JSON (có cả trường hợp response.text() rồi parse lại)
-                    const contentType = response.headers.get("content-type");
-                    if (contentType && contentType.indexOf("application/json") !== -1) {
-                        return response.json();
-                    } else {
-                        return response.text().then((text) => {
-                            try {
-                                return JSON.parse(text);
-                            } catch (e) {
-                                throw new Error("Không đúng định dạng JSON: " + text);
-                            }
-                        });
-                    }
-                })
-                .then((data) => {
-                    if (data.error) {
-                        // Nếu có lỗi từ server, chuyển sang offline
-                        return offlineSearch(query);
-                    }
-                    // Nếu không có dữ liệu online (ví dụ mảng rỗng), cũng dùng offline làm dự phòng
-                    if (!Array.isArray(data) || data.length === 0) {
-                        return offlineSearch(query);
-                    }
-                    return data;
-                })
-                .then((data) => {
-                    processResults(data);
-                })
-                .catch((error) => {
-                    console.error("Lỗi khi tìm kiếm online:", error);
-                    // Nếu có lỗi, fallback sang offline search
-                    offlineSearch(query)
-                        .then((data) => {
-                            processResults(data);
-                        })
-                        .catch((err) => {
-                            console.error("Lỗi khi tìm kiếm offline:", err);
-                            resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu!</p>`;
-                        });
-                });
-        } else {
-            // Nếu không có mạng, sử dụng offline search
-            offlineSearch(query)
-                .then((data) => {
-                    processResults(data);
-                })
-                .catch((err) => {
-                    console.error("Lỗi khi tìm kiếm offline:", err);
-                    resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu!</p>`;
-                });
-        }
+        // Chỉ sử dụng offline search để tìm kiếm
+        offlineSearch(query)
+            .then((data) => {
+                processResults(data);
+            })
+            .catch((err) => {
+                console.error("Lỗi khi tìm kiếm offline:", err);
+                resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu!</p>`;
+            });
     });
 
     // ---------------------
