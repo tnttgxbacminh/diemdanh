@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-cache-v20';
+const CACHE_NAME = 'attendance-cache-v21';
 const urlsToCache = [
     '/diemdanh/',
     '/diemdanh/index.html',
@@ -103,3 +103,4 @@ self.addEventListener('notificationclick', function (event) {
             })
     );
 });
+
