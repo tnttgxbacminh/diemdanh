@@ -1170,7 +1170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <!-- Hàng 3: Lớp và Ngày sinh -->
         <div class="info-row">
           <div class="col">Lớp: ${record.birthDate || ""}</div>
-          <div class="col">Ngày sinh: ${record.dob || ""}</div>
+          <div class="col">DOB: ${record.dob || ""}</div>
         </div>
         <!-- Hàng 2: SĐT -->
         <div class="info-row info-row-2">SĐT: ${record.sdt || ""}</div>
@@ -1721,7 +1721,6 @@ document.addEventListener("DOMContentLoaded", function () {
             printWindow.print();
         }, 1000);
     }
-
     // Kiểm tra nếu trình duyệt hỗ trợ Notification và trạng thái hiện tại là "default"
     if ("Notification" in window && Notification.permission === "default") {
         // Định nghĩa hàm xử lý khi người dùng click vào bất kỳ điểm nào trên trang
@@ -1737,7 +1736,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // Gán sự kiện click cho toàn bộ tài liệu
         document.addEventListener("click", handleUserClick);
     }
-
     // Hàm gửi thông điệp đến Service Worker để hiển thị thông báo offline
     function sendOfflineNotification() {
         if (navigator.serviceWorker) {
