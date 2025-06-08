@@ -48,11 +48,11 @@ body {
 /* --- Hình ảnh trên cùng --- */
 .top-image {
 	/* Giảm kích thước mặc định */
-	width: 150px;
-	height: 150px;
+	width: 110px;
+	height: 110px;
 	overflow: hidden;
 	/* Giảm margin */
-	margin: 30px 0;
+	margin: 10vh 0 10px 0;
 }
 
 	.top-image img {
@@ -61,12 +61,32 @@ body {
 		object-fit: cover;
 	}
 
-/* --- CSS MỚI: Kích thước NHỎ khi ứng dụng active --- */
-body.app-active .top-image {
-	width: 100px; /* <-- Kích thước nhỏ mong muốn */
-	height: 100px; /* <-- Kích thước nhỏ mong muốn */
-	margin: 30px 0; /* Có thể điều chỉnh margin cho phù hợp */
+body.app-active .header-container {
+	display: flex;
+	align-items: center; /* Căn giữa theo chiều dọc */
+	justify-content: flex-start; /* Căn trái */
+	width: 100%;
+	max-width: 900px;
+	padding: 50px 5px 5px 20px;
+	z-index: 100;
 }
+
+	/* Nếu muốn logo giảm xuống kích thước nhỏ hơn như ban đầu đã định (100px) */
+	body.app-active .header-container .top-image {
+		width: 30px;
+		height: 30px;
+		margin: 20px; /* Thêm margin phải để tạo khoảng cách với tiêu đề */
+	}
+
+	/* Sửa lại định dạng tiêu đề để không căn giữa theo container */
+	body.app-active .header-container .page-title {
+		text-align: left;
+		font-size: 1.4rem;
+		font-weight: bold;
+		color: var(--heading-color);
+		margin-bottom: 0;
+		text-transform: uppercase;
+	}
 
 /* --- Nút chuyển chế độ --- */
 .mode-toggle {
@@ -74,11 +94,13 @@ body.app-active .top-image {
 	bottom: 0; /* Căn dưới */
 	left: 0; /* Căn trái */
 	width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
-	height: 60px; /* Chiều cao phù hợp, bạn có thể điều chỉnh */
+	height: 75px; /* Chiều cao phù hợp, bạn có thể điều chỉnh */
 	background-color: var(--light-white);
 	display: flex;
 	justify-content: space-around; /* Phân bố đều các icon */
 	align-items: center;
+	z-index: 950;
+	box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .toggle-button {
@@ -103,7 +125,7 @@ body.app-active .top-image {
 .nav-label {
 	display: block;
 	font-size: 0.75rem;
-	margin-top: 3px; /* Khoảng cách giữa icon và chữ */
+	margin-top: 5px; /* Khoảng cách giữa icon và chữ */
 	color: var(--text-color);
 }
 
@@ -130,69 +152,126 @@ body.app-active .top-image {
 	background-color: var(--primary-color);
 }
 
-
 .student-mesage {
 	/* Giảm font size */
 	font-size: 1rem;
 	margin-top: 15px;
 }
 
-
 /* --- Dropdown trạng thái --- */
-#status-dropdown {
-	display: block; /* Nên dùng none ban đầu và đổi thành block khi 'show' */
-	opacity: 0;
-	visibility: hidden; /* Thêm visibility để ẩn hoàn toàn */
-	transform: translateY(10px); /* Đi xuống 10px để ẩn */
-	position: absolute;
-	background-color: var(--card-bg); /* Đổi thành màu nền thẻ */
-	border: 1px solid var(--neutral-color); /* Thêm border nhẹ */
-	border-radius: 8px;
-	overflow: hidden;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Giảm nhẹ shadow */
-	z-index: 20; /* Bỏ 'px' */
-	margin-bottom: 20px; /* Đổi thành margin-top */
-	min-width: 180px; /* Giảm nhẹ */
-	/* Bỏ min-height */
-	pointer-events: none;
+/* Container dropdown: hiển thị theo chiều dọc */
+.dropdown {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 200px; /* Bạn có thể điều chỉnh */
+	background-color: var(--light-white);
+	display: flex;
+	flex-direction: column; /* Thay đổi thành column để chia thành 2 hàng */
+	box-shadow: 0 -2px 1px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+	border-radius: 25px 25px 0 0; /* Bo tròn chỉ góc trên */
 }
 
-	#status-dropdown.show {
-		opacity: 1;
-		visibility: visible; /* Hiển thị lại */
-		transform: translateY(0);
-		pointer-events: auto;
-	}
+/* Header của dropdown */
+.dropdown-header {
+	display: flex;
+	align-items: center;
+	justify-content: center; /* Căn giữa nội dung theo mặc định */
+	position: relative; /* Cho phép định vị các thành phần con */
+	background-color: var(--light-white);
+	border-radius: 25px 25px 0 0; /* Bo tròn chỉ góc trên */
+}
 
-
-#status-dropdown .status-box {
-	/* Giảm padding và font-size */
-	padding: 10px 12px;
-	cursor: pointer;
-	font-size: 1rem; /* Giảm đáng kể */
-	width: 100%;
-	min-height: auto; /* Bỏ min-height */
-	text-align: center;
-	background-color: var(--card-bg); /* Đổi thành màu nền thẻ */
+/* Tiêu đề dropdown */
+.dropdown-title {
+	font-size: 1.1rem;
+	/*font-weight: bold;*/
 	color: var(--text-color);
+	margin-top: 15px;
+}
+
+/* Nút đóng (X) đặt ở vị trí bên phải (hoặc bạn có thể đặt tùy ý) */
+#dropdown-close,
+#report-close {
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	padding: 5px;
+	transform: translateY(-50%);
+	font-size: 35px;
+	line-height: 0.5;
+	cursor: pointer;
+}
+
+/* Phần body chứa các mục */
+.dropdown-body {
+	flex: 1; /* Chiếm không gian còn lại bên dưới header */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+
+/* Các mục dropdown */
+.status-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Container cho icon */
+.icon-container {
+	width: 60px;
+	height: 60px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-bottom: 1px solid var(--neutral-color); /* Thêm đường kẻ */
+	background-color: var(--card-bg);
+	border: 1px solid var(--primary-color);
+	border-radius: 15px;
 }
 
-	#status-dropdown .status-box:last-child {
-		border-bottom: none; /* Bỏ đường kẻ cho mục cuối */
+/* Icon trong container */
+.dropdown-icon {
+	width: 40px;
+	height: 40px;
+}
+
+/* Text của trạng thái */
+.status-box span {
+	font-size: 0.9rem;
+	color: var(--text-color);
+	margin: 10px;
+}
+
+.info-card {
+	border: 1px solid var(--primary-color);
+	border-radius: 15px;
+	padding: 10px;
+	margin: 10px 0 10px 0;
+}
+
+	.info-card:last-child {
+		margin-bottom: 70px;
 	}
 
-	#status-dropdown .status-box.active {
-		background-color: var(--primary-color); /* Màu nền khi active */
-		color: #fff;
-	}
+.info-row-1 {
+	font-weight: bold;
+}
 
-	#status-dropdown .status-box:hover {
-		background-color: var(--primary-color); /* Màu nền khi hover */
-		color: var(--text-color);
+.info-row {
+	margin-bottom: 5px;
+	font-size: 1rem;
+	display: flex;
+	gap: 10px; /* Khoảng cách giữa các cột */
+}
+
+	.info-row .col {
+		flex: 1; /* Chia đều không gian cho mỗi cột */
 	}
 
 /* --- Container chức năng --- */
@@ -204,6 +283,7 @@ body.app-active .top-image {
 	height: 100%;
 	max-width: 900px;
 	padding: 0 10px; /* Thêm padding ngang */
+	background-color: var(--card-bg);
 }
 
 	.function-container .container {
@@ -216,8 +296,6 @@ body.app-active .top-image {
 		*/
 		padding: 10px; /* Giảm padding */
 		/* Thêm overflow nếu nội dung có thể dài */
-		overflow-y: auto;
-		max-height: calc(100vh - 200px); /* Ví dụ giới hạn chiều cao */
 	}
 
 /* --- Fullscreen QR Container --- */
@@ -229,7 +307,6 @@ body.app-active .top-image {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-	background-color: #000;
 	z-index: 0;
 	border-radius: 0;
 }
@@ -240,7 +317,6 @@ body.app-active .top-image {
 	width: 100vw;
 	height: 100vh;
 	border: none;
-	background: #000;
 	overflow: hidden;
 	position: relative;
 	display: flex;
@@ -257,9 +333,10 @@ body.app-active .top-image {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: var(--card-bg);
 		font-size: 1rem;
-		color: #fff;
+		color: var(--text-color);
+		z-index: 10;
 	}
 /* Container chứa camera */
 #cameraContainer {
@@ -273,91 +350,86 @@ video {
 	height: 100%;
 	object-fit: cover;
 }
-
+#complete-btn {
+	position: absolute;
+	bottom: 11vh; /* Khoảng cách từ đáy */
+	left: 50%; /* Nút bắt đầu từ giữa màn hình */
+	transform: translate(-50%, -50%);
+	padding: 3px 18px 8px 18px;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.7); /* 50% trong suốt */
+	border: none;
+	color: var(--card-bg);
+	cursor: pointer;
+	z-index: 100; /* Nút nằm trên các phần tử khác */
+	font-size: 42px;
+}
+	#complete-btn:hover {
+		background-color: var(--light-white);
+		color: var(--text-color);
+	}
 /* --- Style cho Search & Report --- */
 /* Chỉ áp dụng cho input (query) */
 #search-query,
-#report-query {
-	width: 100%; /* Input chiếm hết chiều rộng tại vị trí của nó */
-	height: 35px;
-	padding: 10px;
-	margin-top: 0;
-	margin-bottom: 15px;
-	font-size: 1rem;
+#report-query,
+#info-query {
+	width: 100%;
+	height: 45px;
+	padding: 0 50px 0 20px; /* padding-right đủ để chứa button */
+	font-size: 1.2rem;
 	border: 1px solid var(--neutral-color);
-	border-radius: 5px;
+	border-radius: 20px;
+	box-sizing: border-box;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Áp dụng cho button */
 #search-button,
-#report-button {
-	/* Bỏ width: 100%; để giữ kích thước button nhỏ gọn */
+#report-button,
+#info-button {
+	position: absolute;
+	top: 50%;
+	right: 20px;
+	transform: translateY(-50%);
 	height: 35px;
-	padding: 0 30px;
-	margin-top: 0;
-	margin-bottom: 15px;
-	background-color: var(--primary-color);
-	color: #fff;
+	width: 35px;
 	border: none;
-	border-radius: 5px;
+	border-radius: 10px;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	background-color: transparent; /* Không hiển thị nền */
 }
 
 	#search-button:hover,
-	#report-button:hover {
-		background-color: var(--primary-dark);
-		transform: scale(1.02);
+	#report-button:hover,
+	#info-button:hover {
+		background-color: var(--bg-color);
 	}
 
 #search-query:focus,
-#report-query:focus {
+#report-query:focus,
+#info-query:focus {
 	border-color: var(--primary-color);
 	box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .input-group {
-	display: flex;
-	align-items: center;
+	position: relative;
 	width: 100%;
 }
 
-	.input-group input {
-		flex: 1; /* Input mở rộng chiếm không gian còn lại */
-		margin-top: 0; /* Bỏ margin top nếu bạn muốn căn chỉnh theo hàng */
-	}
-
-	.input-group button {
-		margin-left: 5px; /* Khoảng cách nhỏ giữa input và button */
-		margin-top: 0; /* Bỏ margin top để căn hàng */
-		width: auto; /* Đảm bảo button không bị mở rộng */
-	}
-
-
-	.input-group button img {
-		width: 20px;
-		height: 20px;
+	.input-group img {
+		width: 28px;
+		height: 28px;
 		display: block;
-		filter: brightness(0) invert(1);
 	}
-
 
 /* --- Bảng (Table) --- */
-/* Bọc table trong div.table-responsive */
-.table-responsive {
-	width: 100%;
-	max-width: 100%;
-	overflow-x: auto;
-	-webkit-overflow-scrolling: touch;
-	margin-top: 0;
-	border: 1px solid var(--neutral-color); /* Thêm border cho container */
-	border-radius: 5px;
-	overflow: hidden;
-}
 
 table {
+	margin-top: 10px;
 	table-layout: fixed; /* Cân nhắc dùng fixed nếu biết chiều rộng cột */
 	width: 100%; /* Đảm bảo bảng không cố gắng rộng hơn container */
 	border-collapse: collapse;
@@ -382,8 +454,6 @@ th {
 	td:last-child, th:last-child {
 		text-align: center; /* Căn giữa cột cuối (thường là checkbox/action) */
 	}
-
-
 
 /* --- Checkbox điểm danh --- */
 .attendance-checkbox {
@@ -441,7 +511,6 @@ th {
 	/* Bạn cũng có thể thêm các thuộc tính khác như font-weight, color,... */
 }
 
-
 /* --- Nút xác nhận điểm danh --- */
 .confirm-attendance-btn {
 	background: var(--primary-color);
@@ -477,7 +546,7 @@ th {
 	opacity: 0;
 	visibility: hidden;
 	z-index: 1000;
-	padding: 30px;
+	padding: 10px;
 }
 
 	.modal.show {
@@ -487,10 +556,10 @@ th {
 
 .modal-content {
 	background: var(--light-white);
-	border-radius: 8px;
+	border-radius: 15px;
 	text-align: center;
 	position: relative;
-	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	padding: 10px 15px;
 }
 
@@ -501,6 +570,7 @@ th {
 		line-height: 1.6;
 		white-space: pre-line; /* Bảo toàn ký tự xuống dòng */
 		overflow-wrap: break-word;
+		text-align: center;
 	}
 
 	.modal-content.success {
@@ -566,6 +636,18 @@ th {
 	display: inline-block;
 }
 
+.spinner-login {
+	margin: 0 5px 0 0; /* Điều chỉnh margin */
+	width: 25px; /* Giảm */
+	height: 25px;
+	border: 3px solid rgba(255, 255, 255, 0.3); /* Màu sáng hơn trên nền tối */
+	border-left-color: var(--card-bg); /* Giữ nguyên */
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+	vertical-align: middle;
+	display: inline-block;
+}
+
 @keyframes spin {
 	to {
 		transform: rotate(360deg);
@@ -582,27 +664,22 @@ th {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 95%;
-	max-width: 900px;
-	padding: 20px 10px;
+	width: 100%;
+	max-width: 400px;
+	padding: 40px 20px;
 	text-align: center;
-	/*
-	background: var(--card-bg);
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	*/
-
 	transform: translate(-50%, -50%);
 }
 
 	.login-container input {
 		width: 100%;
-		/* Giảm padding/font */
-		padding: 12px 10px;
+		height: 45px;
+		padding: 0 10px 0 20px; /* padding-right đủ để chứa button */
 		margin: 10px 0; /* Giảm margin */
-		font-size: 1rem; /* Giảm */
+		font-size: 1.2rem; /* Giảm */
 		border: 1px solid var(--neutral-color);
-		border-radius: 5px;
+		border-radius: 20px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	}
 
 		.login-container input:focus {
@@ -618,13 +695,15 @@ th {
 		margin: 10px 0; /* Giữ margin top */
 		background: var(--primary-color);
 		color: #fff;
-		font-size: 1rem; /* Giảm */
+		height: 45px;
+		font-size: 1.2rem; /* Giảm */
 		border: none;
-		border-radius: 5px;
+		border-radius: 20px;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	}
 
 		.login-container button:hover {
@@ -632,7 +711,7 @@ th {
 		}
 
 /* --- Media Query cho màn hình nhỏ (điện thoại) --- */
-@media (max-width: 600px) {
+@media (max-width: 767px) {
 	body {
 		font-size: 0.95rem; /* Có thể giảm nhẹ font gốc trên mobile */
 		width: 100%;
@@ -642,53 +721,69 @@ th {
 		/* Giảm kích thước thêm */
 		width: 95px;
 		height: 95px;
-		margin: 40px 0;
+		margin: 10vh 0 10px 0;
 	}
 
-	body.app-active .top-image {
-		width: 70px; /* <-- Kích thước nhỏ mong muốn (mobile) */
-		height: 70px; /* <-- Kích thước nhỏ mong muốn (mobile) */
-		margin-top: 40px;
-		margin-bottom: 30px;
+	#search-query,
+	#report-query,
+	#info-query {
+		height: 42px;
+		font-size: 1rem;
 	}
+
+	#search-button,
+	#report-button,
+	#info-button {
+		height: 34px;
+		width: 34px;
+	}
+
+	.input-group img {
+		width: 25px;
+		height: 25px;
+	}
+
+	.login-container button,
+	.login-container input {
+		height: 40px;
+		font-size: 1rem;
+	}
+
+	body.app-active .header-container {
+		padding: 50px 5px 5px 20px;
+	}
+
+		/* Nếu muốn logo giảm xuống kích thước nhỏ hơn như ban đầu đã định (100px) */
+		body.app-active .header-container .top-image {
+			width: 25px;
+			height: 25px;
+			margin: 10px; /* Thêm margin phải để tạo khoảng cách với tiêu đề */
+		}
+
+		/* Sửa lại định dạng tiêu đề để không căn giữa theo container */
+		body.app-active .header-container .page-title {
+			font-size: 1.2rem;
+		}
 
 	.mode-toggle {
 		width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
-		height: 60px; /* Chiều cao phù hợp, bạn có thể điều chỉnh */
+		height: 70px; /* Chiều cao phù hợp, bạn có thể điều chỉnh */
 	}
 
 	.nav-icon {
 		width: 25px;
 		height: 25px;
-		margin-top: 5px;
 	}
 
 	.nav-label {
 		font-size: 0.58rem;
-		margin-top: 3px; /* Khoảng cách giữa icon và chữ */
-		margin-bottom: 10px;
-		
+		margin-top: 5px; /* Khoảng cách giữa icon và chữ */
 	}
 
 	.function-container {
 		max-width: 100%;
 		padding: 0 16px; /* Giữ padding ngang */
 	}
-
-	.login-container {
-		max-width: 100%;
-		padding: 0 10px; /* Giữ padding ngang */
-	}
-
-	#status-dropdown {
-		min-width: 145px;
-		margin-bottom: 10px;
-	}
-
-		#status-dropdown .status-box {
-			font-size: 0.9rem;
-			padding: 6px 10px;
-		}
 
 	.function-container {
 		flex-direction: column; /* Giữ nguyên */
@@ -701,35 +796,15 @@ th {
 			max-height: 100%; /* Bỏ max-height để nội dung tự do */
 		}
 
-	#search-query,
-	#report-query {
-		height: 35px;
-		margin-bottom: 5px;
-	}
-
-	#search-button,
-	#report-button {
-		height: 35px;
-		padding: 0 20px;
-		margin-bottom: 5px;
-	}
-
-	.login-container input,
-	.login-container button {
-		/* Đảm bảo font đủ lớn để đọc */
-		font-size: 1rem;
-		padding: 7px 10px; /* Giữ padding đủ lớn */
-		/*min-height: 42px;*/ /* Đảm bảo dễ bấm */
-	}
-
 	.student-mesage {
 		font-size: 0.9rem;
 	}
 
 	/* Kích thước font trong dropdown và modal */
-	.modal{
-		padding: 40px;
+	.modal {
+		padding: 10px;
 	}
+
 	.modal-content {
 		padding: 6px 10px;
 	}
@@ -827,7 +902,7 @@ th {
 		}
 }
 
-@media (min-width: 601px) {
+@media (min-width: 768px) {
 	#search-results table colgroup col:nth-child(1) {
 		width: 20%;
 	}
@@ -876,4 +951,3 @@ th {
 		width: 8%;
 	}
 }
-
