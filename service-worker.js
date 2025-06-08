@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-cache-v22';
+const CACHE_NAME = 'attendance-cache-v23';
 const urlsToCache = [
     '/diemdanh/',
     '/diemdanh/index.html',
@@ -23,36 +23,34 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-    // Chỉ xử lý các request GET
-    if (event.request.method !== 'GET') {
+  if (event.request.method !== 'GET') {
+      event.respondWith(fetch(event.request));
+      return;
+  }
+
+    const requestURL = new URL(event.request.url);
+    if (requestURL.searchParams.get('mode') === 'report') {
+        // Tránh fallback, trả về kết quả fetch trực tiếp
         event.respondWith(fetch(event.request));
         return;
     }
 
-    event.respondWith(
-        caches.open(CACHE_NAME).then(cache => {
-            // Tìm phản hồi đã lưu trong cache (nếu có)
-            return cache.match(event.request).then(cachedResponse => {
-                // Đồng thời bắt đầu request từ mạng
-                const networkFetch = fetch(event.request)
-                    .then(networkResponse => {
-                        // Nếu fetch thành công và response là hợp lệ, cập nhật cache
-                        if (networkResponse && networkResponse.status === 200) {
-                            cache.put(event.request, networkResponse.clone());
-                        }
-                        return networkResponse;
-                    })
-                    .catch(error => {
-                        console.error("Lỗi fetch từ network:", error);
-                        // Nếu network fetch thất bại, fallback về cachedResponse nếu có
-                        return cachedResponse;
-                    });
-                
-                // Trả về cachedResponse nếu có, hoặc chờ networkFetch nếu không có cachedResponse
-                return cachedResponse || networkFetch;
-            });
-        })
-    );
+  event.respondWith(
+      caches.open(CACHE_NAME).then(cache => {
+          return cache.match(event.request).then(cachedResponse => {
+              const networkFetch = fetch(event.request).then(networkResponse => {
+                  if (networkResponse && networkResponse.status === 200) {
+                      cache.put(event.request, networkResponse.clone());
+                  }
+                  return networkResponse;
+              }).catch(error => {
+                  console.error("Lỗi fetch từ network:", error);
+                  return cachedResponse;
+              });
+              return cachedResponse || networkFetch;
+          });
+      })
+  );
 });
 
 self.addEventListener('activate', event => {
@@ -74,7 +72,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('message', event => {
     if (event.data && event.data.action === 'offlineNotification') {
         self.registration.showNotification("Điểm danh Offline", {
-            body: "Vào lại ứng dụng khi có kết nối! Để gửi dữ liệu điểm danh.",
+            body: "Đừng quên trở lại ứng dụng khi có kết nối! Để gửi dữ liệu điểm danh.",
             icon: "/diemdanh/images/icon.png",
             tag: "offline-notification"
         });
